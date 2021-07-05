@@ -15,6 +15,9 @@ const get = (list = [], id = 0) => {
  * @returns a létrehozott, beszúrt és id -vel ellátott objektum
  */
 const create = (list = [], entity = null) => {
+    const maxId = Math.floor(Math.max(...list.map(item => item.id)));
+    //entity.id = maxId + 1;
+    entity = {id: maxId + 1, ...entity}; //let's id come first
     list.push(entity);
     return list;
 };
@@ -28,7 +31,7 @@ const create = (list = [], entity = null) => {
 const update = (list = [], entity = {}) => {
     const index = list.findIndex(item => item.id === entity.id);
     if(index === -1) return false;
-    list.index = entity;
+    list[index] = {...list[index], ...entity};
     return list;
 };
 
